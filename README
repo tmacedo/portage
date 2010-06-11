@@ -1,0 +1,4 @@
+I'm trying to keep a set of updated and stable ebuilds for software that is not present in the official Gentoo portage tree or other unofficial overlays.
+
+You can install these by copying them to your local overlay or setting up a new one. Read about that kind of stuff: http://www.gentoo.org/proj/en/overlays/userguide.xml http://learn.clemsonlinux.org/wiki/Gentoo:Overlays
+
