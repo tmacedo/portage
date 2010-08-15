@@ -4,8 +4,8 @@
 
 inherit gnome2
 
-MY_P=${P/_beta/beta}
-S=${WORKDIR}/${MY_P}a
+MY_P=${P}
+S=${WORKDIR}/${MY_P}
 
 DESCRIPTION="A GNOME URL handler for web-published ical calendar files"
 HOMEPAGE="http://www.estamos.de/download/syncevolution/sources/"
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE=""
 
-SRC_URI="http://downloads.syncevolution.org/syncevolution/sources/${MY_P}a.tar.gz"
+SRC_URI="http://downloads.syncevolution.org/syncevolution/sources/${MY_P}.tar.gz"
 
 RESTRICT="mirror"
 
