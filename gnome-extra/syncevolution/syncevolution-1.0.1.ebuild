@@ -13,7 +13,7 @@ HOMEPAGE="http://www.estamos.de/download/syncevolution/sources/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE=""
+IUSE="dbus"
 
 SRC_URI="http://downloads.syncevolution.org/syncevolution/sources/${MY_P}.tar.gz"
 
@@ -30,3 +30,12 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35"
 
 DOCS="AUTHORS ChangeLog TODO"
+
+src_compile() {
+    econf \
+    $(use_enable dbus dbus-service) \
+    || die "configure failed"
+
+    emake || die "emake failed"
+}
+
