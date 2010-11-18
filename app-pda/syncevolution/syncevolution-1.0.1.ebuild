@@ -1,14 +1,13 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/evolution-webcal/evolution-webcal-2.21.92.ebuild,v 1.1 2008/03/26 22:39:57 eva Exp $
 
 inherit gnome2
 
 MY_P=${P}
 S=${WORKDIR}/${MY_P}
 
-DESCRIPTION="A GNOME URL handler for web-published ical calendar files"
-HOMEPAGE="http://www.estamos.de/download/syncevolution/sources/"
+DESCRIPTION="SyncEvolution synchronizes personal information management (PIM) data such as contacts, appointments, tasks and memos using the Synthesis sync engine, which provides support for the SyncML synchronization protocol."
+HOMEPAGE="http://syncevolution.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
