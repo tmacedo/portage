@@ -19,7 +19,7 @@ RDEPEND="dev-python/pygtk
 	dev-python/pyxdg
 	dev-python/evolution-python
 	dev-python/configobj
-	gnome-extra/syncevolution"
+	app-pda/syncevolution"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 

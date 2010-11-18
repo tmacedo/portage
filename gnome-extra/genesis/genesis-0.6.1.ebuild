@@ -26,7 +26,7 @@ RDEPEND="dev-python/pygtk
 	dev-python/configobj
 	dev-python/python-distutils-extra
 	dev-python/libwnck-python
-	gnome-extra/syncevolution[dbus]"
+	app-pda/syncevolution[dbus]"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
