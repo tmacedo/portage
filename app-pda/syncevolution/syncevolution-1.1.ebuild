@@ -12,7 +12,7 @@ HOMEPAGE="http://syncevolution.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="dbus"
+IUSE="dbus gtk"
 
 SRC_URI="http://downloads.syncevolution.org/syncevolution/sources/${MY_P}.tar.gz"
 
@@ -33,6 +33,7 @@ DOCS="AUTHORS ChangeLog TODO"
 src_compile() {
     econf \
     $(use_enable dbus dbus-service) \
+	$(use_enable gtk gui) \
     || die "configure failed"
 
     emake || die "emake failed"
