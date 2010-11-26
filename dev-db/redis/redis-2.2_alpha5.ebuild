@@ -1,18 +1,15 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/redis/redis-1.2.6.ebuild,v 1.1 2010/05/17 21:32:23 lu_zero Exp $
 
 EAPI=2
 
-inherit autotools eutils
-
-#MY_P="redis-2.0.0-rc4"
-MY_P=${P/_/-}
-S=${WORKDIR}/${MY_P}
+inherit git autotools eutils
 
 DESCRIPTION="Persistent distributed key-value data caching system."
 HOMEPAGE="http://code.google.com/p/redis/"
-SRC_URI="http://redis.googlecode.com/files/${MY_P}.tar.gz"
+
+EGIT_REPO_URI="git://github.com/antirez/redis.git"
+EGIT_COMMIT="refs/tags/2.2-alpha5"
 
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
@@ -35,16 +32,27 @@ pkg_setup() {
 
 src_prepare() {
 	# Now autotoolize this
-	cp "${FILESDIR}"/configure.ac-1.02 configure.ac
-	mv Makefile Makefile.in
+	cp "${FILESDIR}"/configure.ac-master configure.ac
+	mv src/Makefile src/Makefile.in
 	sed -i \
 		-e 's:$(CC):@CC@:g' \
 		-e 's:$(CFLAGS):@AM_CFLAGS@:g' \
 		-e 's: $(DEBUG)::g' \
-		-e 's:ARCH:GCC_ARCH_FLAG:g' \
+		-e 's: ARCH="$(ARCH)"::g' \
+		-e 's: $(ARCH)::g' \
 		-e 's:PROF:GCC_PROF_FLAG:g' \
-		Makefile.in \
+		src/Makefile.in \
 	|| die "sed failed!"
+	sed -i \
+        -e 's: $(ARCH)::g' \
+        deps/hiredis/Makefile \
+    || die "sed failed!"
+	sed -i \
+        -e 's: $(ARCH)::g' \
+        deps/linenoise/Makefile \
+    || die "sed failed!"
+
+
 
 	eautoreconf
 }
@@ -71,51 +79,17 @@ src_install() {
 	newconfd "${FILESDIR}/redis.confd" redis
 	newinitd "${FILESDIR}/redis.initd" redis
 
-	dodoc 00-RELEASENOTES BETATESTING.txt BUGS Changelog README TODO
+	dodoc BUGS Changelog README TODO
 	newdoc client-libraries/README README.client-libraries
 	dohtml doc/*
 
-	dobin redis-benchmark redis-cli
-	dosbin redis-server
+	dobin src/redis-benchmark src/redis-cli src/redis-check-aof src/redis-check-dump
+	dosbin src/redis-server
 
 	diropts -m0750 -o redis -g redis
 	keepdir ${REDIS_DATAPATH} ${REDIS_LOGPATH} ${REDIS_PIDDIR}
 }
 
 src_test() {
-	local PORT=$(((RANDOM % 32767)+32768))
-	local PIDFILE=redis-test.pid
-	einfo "Preparing redis test config"
-	# The port number is hardcoded in lots of places
-	sed -r <redis.conf >redis-test.conf \
-		-e "/^pidfile/s~ .*~ ${PIDFILE}~" \
-		-e '/^daemonize/s~ no~ yes~' \
-		-e "/^port/s~ [0-9]+~ ${PORT}~" \
-		-e '/^(# )?bind/s,^,#,g' \
-		-e '/\<bind\>/abind 127.0.0.1' \
-		|| die "Failed to build test server config"
-	# The port number is hardcoded in lots of places
-	for i in test-redis.tcl redis.tcl ; do
-		sed -r <$i >${i/.tcl/-${PORT}.tcl} \
-			-e "/^source redis.tcl/s,redis.tcl,redis-${PORT}.tcl,g" \
-			-e "/6379/s~6379~${PORT}~" \
-			|| die "Failed to build test client config ($i)"
-	done
-	einfo "Starting test server"
-	./redis-server redis-test.conf
-	rc1=$?
-	sleep 2
-	[[ $rc1 -ne 0 ]] && die "Failed to start redis server!"
-	pidof redis-server | fgrep -f ${PIDFILE}
-	rc1=$?
-	[[ $rc1 -ne 0 ]] && die "Could not find started redis server!"
-	unset rc1
-
-	einfo "Starting redis tests"
-	tclsh test-redis-$PORT.tcl
-	rc1=$?
-	kill -9 $(<${PIDFILE})
-	rc2=$?
-	[[ $rc1 -ne 0 ]] && die "Failed testsuite"
-	[[ $rc2 -ne 0 ]] && die "Failed to shut down redis server"
+	make test || die "Tests failed"
 }

@@ -1,19 +1,14 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/redis/redis-1.2.6.ebuild,v 1.1 2010/05/17 21:32:23 lu_zero Exp $
 
 EAPI=2
 
 inherit git autotools eutils
 
-#MY_P=${P/_/-}
-S=${WORKDIR}/${MY_P}
-
 DESCRIPTION="Persistent distributed key-value data caching system."
 HOMEPAGE="http://code.google.com/p/redis/"
 
 EGIT_REPO_URI="git://github.com/antirez/redis.git"
-#SRC_URI="http://redis.googlecode.com/files/${MY_P}.tar.gz"
 
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
@@ -95,39 +90,5 @@ src_install() {
 }
 
 src_test() {
-	local PORT=$(((RANDOM % 32767)+32768))
-	local PIDFILE=redis-test.pid
-	einfo "Preparing redis test config"
-	# The port number is hardcoded in lots of places
-	sed -r <redis.conf >redis-test.conf \
-		-e "/^pidfile/s~ .*~ ${PIDFILE}~" \
-		-e '/^daemonize/s~ no~ yes~' \
-		-e "/^port/s~ [0-9]+~ ${PORT}~" \
-		-e '/^(# )?bind/s,^,#,g' \
-		-e '/\<bind\>/abind 127.0.0.1' \
-		|| die "Failed to build test server config"
-	# The port number is hardcoded in lots of places
-	for i in test-redis.tcl redis.tcl ; do
-		sed -r <$i >${i/.tcl/-${PORT}.tcl} \
-			-e "/^source redis.tcl/s,redis.tcl,redis-${PORT}.tcl,g" \
-			-e "/6379/s~6379~${PORT}~" \
-			|| die "Failed to build test client config ($i)"
-	done
-	einfo "Starting test server"
-	./redis-server redis-test.conf
-	rc1=$?
-	sleep 2
-	[[ $rc1 -ne 0 ]] && die "Failed to start redis server!"
-	pidof redis-server | fgrep -f ${PIDFILE}
-	rc1=$?
-	[[ $rc1 -ne 0 ]] && die "Could not find started redis server!"
-	unset rc1
-
-	einfo "Starting redis tests"
-	tclsh test-redis-$PORT.tcl
-	rc1=$?
-	kill -9 $(<${PIDFILE})
-	rc2=$?
-	[[ $rc1 -ne 0 ]] && die "Failed testsuite"
-	[[ $rc2 -ne 0 ]] && die "Failed to shut down redis server"
+    make test || die "Tests failed"
 }

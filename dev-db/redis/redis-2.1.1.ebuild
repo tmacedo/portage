@@ -3,11 +3,13 @@
 
 EAPI=2
 
-inherit autotools eutils
+inherit git autotools eutils
 
 DESCRIPTION="Persistent distributed key-value data caching system."
 HOMEPAGE="http://code.google.com/p/redis/"
-SRC_URI="http://redis.googlecode.com/files/${P}.tar.gz"
+
+EGIT_REPO_URI="git://github.com/antirez/redis.git"
+EGIT_COMMIT="refs/tags/v2.1.1-watch"
 
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
@@ -29,17 +31,17 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# Now autotoolize this
-	cp "${FILESDIR}"/configure.ac-1.02 configure.ac
-	mv Makefile Makefile.in
-	sed -i \
-		-e 's:$(CC):@CC@:g' \
-		-e 's:$(CFLAGS):@AM_CFLAGS@:g' \
-		-e 's: $(DEBUG)::g' \
-		-e 's:ARCH:GCC_ARCH_FLAG:g' \
-		-e 's:PROF:GCC_PROF_FLAG:g' \
-		Makefile.in \
-	|| die "sed failed!"
+    # Now autotoolize this
+    cp "${FILESDIR}"/configure.ac-1.02 configure.ac
+    mv Makefile Makefile.in
+    sed -i \
+        -e 's:$(CC):@CC@:g' \
+        -e 's:$(CFLAGS):@AM_CFLAGS@:g' \
+        -e 's: $(DEBUG)::g' \
+        -e 's:ARCH:GCC_ARCH_FLAG:g' \
+        -e 's:PROF:GCC_PROF_FLAG:g' \
+        Makefile.in \
+    || die "sed failed!"
 
 	eautoreconf
 }
@@ -66,11 +68,11 @@ src_install() {
 	newconfd "${FILESDIR}/redis.confd" redis
 	newinitd "${FILESDIR}/redis.initd" redis
 
-	dodoc 00-RELEASENOTES BETATESTING.txt BUGS Changelog README
+	dodoc BUGS Changelog README TODO
 	newdoc client-libraries/README README.client-libraries
 	dohtml doc/*
 
-	dobin redis-benchmark redis-cli
+	dobin redis-benchmark redis-cli redis-check-aof redis-check-dump
 	dosbin redis-server
 
 	diropts -m0750 -o redis -g redis
