@@ -9,7 +9,7 @@ DESCRIPTION="Persistent distributed key-value data caching system."
 HOMEPAGE="http://code.google.com/p/redis/"
 
 EGIT_REPO_URI="git://github.com/antirez/redis.git"
-EGIT_COMMIT="refs/tags/2.2-alpha5"
+EGIT_COMMIT="refs/tags/2.2-alpha6"
 
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"

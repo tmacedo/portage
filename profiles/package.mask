@@ -1,3 +1,1 @@
-=dev-db/redis-2.1.1
-=dev-db/redis-2.2_alpha5
-=dev-db/redis-9999
+>=dev-db/redis-2.1.1
