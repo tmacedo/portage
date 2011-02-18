@@ -1,0 +1,5 @@
+#!/usr/bin/python
+import hsoc
+ret = hsoc.HSOconnect.run()
+if ret != None:
+  print ret
