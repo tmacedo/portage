@@ -26,7 +26,8 @@ RDEPEND=">=gnome-base/gconf-2
 	>=gnome-extra/evolution-data-server-1.2"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
-	>=dev-util/intltool-0.35"
+	>=dev-util/intltool-0.35
+	dev-util/gtk-builder-convert"
 
 DOCS="AUTHORS ChangeLog"
 
