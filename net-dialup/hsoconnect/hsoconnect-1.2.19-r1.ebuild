@@ -1,9 +1,10 @@
 # Copyright 1999-2009 Gentoo Technologies, Inc.
 # Distributed under the terms of the GNU General Public License v2
 
+EAPI="3"
+
 inherit python rpm
 
-EAPI="3"
 DESCRIPTION="HSO UMTS PyGTK Connection Manager"
 SUPPORT_PYTHON_ABIS="1"
 HOMEPAGE="http://www.pharscape.org/"
