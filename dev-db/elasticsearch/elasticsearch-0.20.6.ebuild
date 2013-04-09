@@ -21,31 +21,43 @@ RDEPEND=">=virtual/jre-1.6.0"
 ES_HOME="/opt/elasticsearch"
 
 pkg_setup() {
-    enewgroup elasticsearch
-    enewuser elasticsearch -1 -1 /var/lib/elasticsearch elasticsearch
+	enewgroup elasticsearch
+	enewuser elasticsearch -1 -1 /var/lib/elasticsearch elasticsearch
 }
 
 src_install() {
 	dodir "${ES_HOME}"
 	dodir /etc/elasticsearch
-    dodir /var/log/elasticsearch
+	dodir /var/log/elasticsearch
 
 	insinto /etc/elasticsearch
 	doins "${FILESDIR}"/elasticsearch.yml
 	doins "${FILESDIR}"/logging.yml
 
-    fowners elasticsearch:elasticsearch /etc/elasticsearch/{elasticsearch,logging}.yml
+	fowners elasticsearch:elasticsearch /etc/elasticsearch/{elasticsearch,logging}.yml
 	fowners elasticsearch:elasticsearch /var/log/elasticsearch
 
 	newinitd "${FILESDIR}/elasticsearch.initd" elasticsearch
 
 	insinto "${ES_HOME}"
 	doins -r bin
-	doins -r lib
 	doins -r config
 	doins -r README.textile
 	doins -r LICENSE.txt
 	doins -r NOTICE.txt
 
-    fperms 0755 ${ES_HOME}/bin/elasticsearch
+	insinto "${ES_HOME}/lib"
+	doins lib/*
+
+	if use x86; then
+		sigar_lib="libsigar-x86-linux.so"
+	elif use amd64; then
+		sigar_lib="libsigar-amd64-linux.so"
+	fi
+
+	insinto "${ES_HOME}/lib/sigar"
+	doins lib/sigar/*.jar
+	doins lib/sigar/${sigar_lib}
+
+	fperms 0755 ${ES_HOME}/bin/elasticsearch
 }
