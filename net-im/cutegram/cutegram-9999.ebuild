@@ -27,6 +27,7 @@ DEPEND="dev-libs/openssl
 	dev-qt/qtquickcontrols:5
 	dev-qt/qtsql:5
 	dev-qt/qtsvg:5
+	dev-qt/qtxml:5
 	dev-qt/qtwidgets:5
 	net-im/libqtelegram"
 

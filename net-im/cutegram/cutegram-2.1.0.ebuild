@@ -11,9 +11,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-SRC_URI="http://aseman.co/downloads/cutegram/2/cutegram-${PV}-src.tar.gz"
+SRC_URI="https://github.com/Aseman-Land/Cutegram/archive/v${PV}-stable.tar.gz"
 
-S="${WORKDIR}/cutegram"
+S="${WORKDIR}/Cutegram-${PV}-stable"
 
 DEPEND="dev-libs/openssl
     dev-qt/qtcore:5
