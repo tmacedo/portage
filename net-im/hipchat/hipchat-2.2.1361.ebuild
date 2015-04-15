@@ -10,7 +10,7 @@ HOMEPAGE="http://www.hipchat.com/"
 SRC_URI_AMD64="http://downloads.hipchat.com/linux/arch/x86_64/hipchat-${PV}-x86_64.pkg.tar.xz"
 SRC_URI_X86="http://downloads.hipchat.com/linux/arch/i686/hipchat-${PV}-i686.pkg.tar.xz"
 SRC_URI="
-    amd64? ( ${SRC_URI_AMD64} )
+	amd64? ( ${SRC_URI_AMD64} )
 	x86? ( ${SRC_URI_X86} )
 "
 
@@ -22,5 +22,5 @@ S=${WORKDIR}
 
 src_install() {
 	doins -r *
-	fperms 0755 /opt/HipChat/bin/hipchat /opt/HipChat/lib/hipchat.bin
+	fperms -R 0755 /opt/HipChat/bin/ /opt/HipChat/lib/hipchat.bin
 }
