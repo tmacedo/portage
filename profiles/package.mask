@@ -1,6 +1,3 @@
 =media-libs/thumbnailer-9999
 =net-im/libqtelegram-9999
 =net-im/cutegram-9999
-
-# aseman.co is currently unreachable and 2.1.1 is not on github
-=net-im/cutegram-2.1.1
