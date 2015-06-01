@@ -4,16 +4,16 @@
 
 EAPI=5
 
-EGIT_REPO_URI="https://github.com/Aseman-Land/Cutegram.git"
-EGIT_BRANCH="master"
-inherit git-2 qmake-utils
+inherit qmake-utils
 DESCRIPTION="Cutegram Desktop Client"
 HOMEPAGE="http://aseman.co/en/products/cutegram/"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-S="${S}/${P}"
+SRC_URI="http://aseman.co/downloads/cutegram/2/cutegram-src-${PV}.tar.gz"
+
+S="${S}-src"
 
 DEPEND="dev-libs/openssl
     dev-qt/qtcore:5
