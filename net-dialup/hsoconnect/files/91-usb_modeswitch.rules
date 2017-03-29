@@ -1,2 +1,0 @@
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0af0", ATTRS{idProduct}=="6971", RUN+="/usr/sbin/usb_modeswitch  --DefaultVendor 0x0af0 --DefaultProduct 0x%s{idProduct} --TargetClass 0xff --MessageEndpoint 0x05 --MessageContent 55534243785634120100000080000601000000000000000000000000000000"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0af0", ATTRS{idProduct}=="7301", RUN+="/usr/sbin/usb_modeswitch  --DefaultVendor 0x0af0 --DefaultProduct 0x%s{idProduct} --TargetClass 0xff --MessageEndpoint 0x01 --MessageContent 55534243785634120100000080000601000000000000000000000000000000"
