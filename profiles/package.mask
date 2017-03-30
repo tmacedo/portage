@@ -1,4 +1,4 @@
-=media-libs/thumbnailer-9999
-=net-im/libqtelegram-9999
+=dev-qt/aseman-tools-9999
 =net-libs/libqtelegram-ae-9999
+=net-libs/telegramqml-9999
 =net-im/cutegram-9999

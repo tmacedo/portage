@@ -5,18 +5,18 @@
 EAPI=5
 
 inherit git-2 qmake-utils
-EGIT_REPO_URI="https://github.com/Aseman-Land/Cutegram.git"
+EGIT_REPO_URI="https://github.com/Aseman-Land/TelegramQML.git"
 EGIT_COMMIT="master"
-DESCRIPTION="Cutegram Desktop Client"
-HOMEPAGE="http://aseman.co/en/products/cutegram/"
+
+DESCRIPTION="Telegram QML"
+HOMEPAGE="https://github.com/Aseman-Land/TelegramQML"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-S="${S}-src"
+S="${WORKDIR}/TelegramQML-${PV}"
 
-DEPEND="dev-libs/openssl
-    dev-qt/qtcore:5
+DEPEND="dev-qt/qtcore:5
 	dev-qt/qtdbus:5
 	dev-qt/qtgraphicaleffects:5
 	dev-qt/qtgui:5
@@ -24,16 +24,15 @@ DEPEND="dev-libs/openssl
 	dev-qt/qtnetwork:5
 	dev-qt/qtprintsupport:5
 	dev-qt/qtquickcontrols:5
-	dev-qt/qtdeclarative:5[localstorage]
 	dev-qt/qtsql:5
 	dev-qt/qtsvg:5
 	dev-qt/qtxml:5
 	dev-qt/qtwebkit:5
 	dev-qt/qtwidgets:5
-	>=net-libs/telegramqml-2.0.0"
+	>=net-libs/libqtelegram-ae-10.0.0"
 
 src_configure() {
-	eqmake5 CONFIG+=binaryMode
+	eqmake5
 }
 
 src_install() {

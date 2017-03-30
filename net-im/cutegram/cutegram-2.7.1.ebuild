@@ -13,7 +13,7 @@ KEYWORDS="~amd64 ~x86"
 
 SRC_URI="http://aseman.co/downloads/cutegram/2/cutegram-${PV}-src.tar.gz"
 
-S="${WORKDIR}/cutegram"
+S="${S}-src"
 
 DEPEND="dev-libs/openssl
     dev-qt/qtcore:5
@@ -23,13 +23,13 @@ DEPEND="dev-libs/openssl
 	dev-qt/qtmultimedia:5[qml]
 	dev-qt/qtnetwork:5
 	dev-qt/qtprintsupport:5
-	dev-qt/qtquick1:5
 	dev-qt/qtquickcontrols:5
 	dev-qt/qtsql:5
 	dev-qt/qtsvg:5
 	dev-qt/qtxml:5
+	dev-qt/qtwebkit:5
 	dev-qt/qtwidgets:5
-	net-im/libqtelegram"
+	=net-libs/telegramqml-0.9.2"
 
 src_configure() {
 	eqmake5

@@ -5,7 +5,7 @@
 EAPI=5
 
 EGIT_REPO_URI="https://github.com/Aseman-Land/libqtelegram-aseman-edition.git"
-EGIT_COMMIT="AP_23"
+EGIT_COMMIT="v${PV}-stable"
 inherit git-2 qmake-utils
 DESCRIPTION="Aseman's fork of libqtelegram"
 HOMEPAGE="http://aseman.co/en/products/cutegram/"
@@ -15,8 +15,6 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND="dev-qt/qtnetwork:5
 	dev-qt/qtmultimedia:5
-	media-libs/thumbnailer
-	media-libs/libmediainfo
 	dev-libs/openssl"
 
 src_prepare() {
@@ -24,7 +22,7 @@ src_prepare() {
 }
 
 src_configure() {
-	eqmake5
+	eqmake5 CONFIG+=typeobjects
 }
 
 src_install() {
