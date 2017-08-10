@@ -2,3 +2,4 @@
 =net-libs/libqtelegram-ae-9999
 =net-libs/telegramqml-9999
 =net-im/cutegram-9999
+=dev-java/nailgun-9999
