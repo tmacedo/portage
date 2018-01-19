@@ -20,7 +20,7 @@ IUSE=""
 
 DEPEND=">=virtual/jdk-1.8
 	>=dev-lang/scala-2.11.8:${SV}
-	dev-java/sbt"
+	|| ( dev-java/sbt dev-java/sbt-bin )"
 RDEPEND=">=virtual/jre-1.8"
 
 JAVA_GENTOO_CLASSPATH="scala-${SV}"
