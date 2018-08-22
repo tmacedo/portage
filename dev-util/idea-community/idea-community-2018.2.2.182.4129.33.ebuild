@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ inherit eutils versionator
 
 SLOT="0"
 PV_STRING="$(get_version_component_range 4-6)"
-MY_PV="$(get_version_component_range 1-2)"
+MY_PV="$(get_version_component_range 1-3)"
 MY_PN="idea"
 
 # distinguish settings for official stable releases and EAP-version releases
