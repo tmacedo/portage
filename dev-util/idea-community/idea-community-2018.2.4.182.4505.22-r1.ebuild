@@ -17,7 +17,7 @@ then
 	SRC_URI="https://download.jetbrains.com/idea/${MY_PN}IC-${PV_STRING}.tar.gz"
 else
 	# upstream stable
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64"
 	SRC_URI="https://download.jetbrains.com/idea/${MY_PN}IC-${MY_PV}.tar.gz -> ${MY_PN}IC-${PV_STRING}.tar.gz"
 fi
 
