@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -17,7 +17,7 @@ then
 	SRC_URI="https://download.jetbrains.com/idea/${MY_PN}IC-${PV_STRING}.tar.gz"
 else
 	# upstream stable
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64"
 	SRC_URI="https://download.jetbrains.com/idea/${MY_PN}IC-${MY_PV}.tar.gz -> ${MY_PN}IC-${PV_STRING}.tar.gz"
 fi
 
@@ -36,13 +36,15 @@ S="${WORKDIR}/${MY_PN}-IC-${PV_STRING}"
 
 QA_PREBUILT="opt/${PN}-${MY_PV}/*"
 
+CUSTOM_JRE_DIR="jre64"
+
 src_prepare() {
 	if ! use arm; then
 		rm bin/fsnotifier-arm || die
 	fi
 	if ! use custom-jdk; then
-		if [[ -d jre ]]; then
-			rm -r jre || die
+		if [[ -d "$CUSTOM_JRE_DIR" ]]; then
+			rm -r "$CUSTOM_JRE_DIR" || die
 		fi
 	fi
 }
@@ -55,8 +57,8 @@ src_install() {
 	fperms 755 "${dir}"/bin/{idea.sh,fsnotifier{,64}}
 
 	if use custom-jdk; then
-		if [[ -d jre ]]; then
-		fperms 755 "${dir}"/jre/jre/bin/{java,jjs,keytool,orbd,pack200,policytool,rmid,rmiregistry,servertool,tnameserv,unpack200}
+		if [[ -d "$CUSTOM_JRE_DIR" ]]; then
+		fperms 755 "${dir}"/"$CUSTOM_JRE_DIR"/bin/{java,jjs,keytool,orbd,pack200,policytool,rmid,rmiregistry,servertool,tnameserv,unpack200}
 		fi
 	fi
 
