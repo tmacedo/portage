@@ -26,7 +26,7 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sys-apps/pcsc-tools
 	sys-apps/pcsc-lite
-	dev-libs/openssl
+	dev-libs/openssl:1.0.0
 	>=dev-libs/xerces-c-3.2.0
 	=dev-libs/libzip-1.1.3
 	=dev-libs/xml-security-c-1.7.3-r1
