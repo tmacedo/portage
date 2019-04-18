@@ -7,6 +7,7 @@ inherit eutils versionator
 SLOT="0"
 PV_STRING="$(get_version_component_range 4-6)"
 MY_PV="$(get_version_component_range 1-3)"
+MY_PV="${MY_PV%%.0}" # cutting the trailing ".0" at the version, so e.g. "2019.1.0" becomes "2019.1"
 MY_PN="idea"
 
 # distinguish settings for official stable releases and EAP-version releases
