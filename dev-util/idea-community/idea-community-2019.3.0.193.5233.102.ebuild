@@ -40,9 +40,6 @@ QA_PREBUILT="opt/${PN}-${MY_PV}/*"
 CUSTOM_JRE_DIR="jre64"
 
 src_prepare() {
-	if ! use arm; then
-		rm bin/fsnotifier-arm || die
-	fi
 	if ! use custom-jdk; then
 		if [[ -d "$CUSTOM_JRE_DIR" ]]; then
 			rm -r "$CUSTOM_JRE_DIR" || die
