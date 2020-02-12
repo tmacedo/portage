@@ -3,15 +3,13 @@
 
 EAPI="5"
 
-inherit eutils java-pkg-2 git-2
+inherit eutils java-pkg-2 git-r3
 
 DESCRIPTION="A client, protocol and server for running without incurring JVM startup overhead"
 HOMEPAGE="http://martiansoftware.com/nailgun/index.html"
 
 EGIT_REPO_URI="https://github.com/martylamb/nailgun.git"
-EGIT_COMMIT="master"
-
-#SRC_URI="https://github.com/martylamb/nailgun/archive/nailgun-all-0.9.1.zip"
+EGIT_BRANCH="master"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -25,14 +23,17 @@ DEPEND=">=virtual/jdk-1.8
 #need jcoverage
 RESTRICT="test"
 
-src_compile() {
+src_prepare() {
 	mvn clean install
+}
+
+src_compile() {
 	make
 }
 
 src_install() {
-	dobin ng
+	dobin nailgun-client/target/ng
 
-	mv nailgun-server/target/nailgun-server-0.9.2-SNAPSHOT.jar nailgun.jar
+	mv nailgun-server/target/nailgun-server-1.0.1.jar nailgun.jar
 	java-pkg_newjar nailgun.jar
 }
