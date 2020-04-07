@@ -10,8 +10,7 @@ inherit unpacker eutils
 DESCRIPTION="Tool for authenticating with https://www.autenticacao.gov.pt/"
 HOMEPAGE="https://www.autenticacao.gov.pt/"
 
-SRC_URI_AMD64="https://autenticacao.gov.pt/fa/ajuda/software/autenticacao.gov.pt.deb"
-SRC_URI="https://autenticacao.gov.pt/fa/ajuda/software/autenticacao.gov.pt.deb"
+SRC_URI="https://autenticacao.gov.pt/fa/ajuda/software/plugin-autenticacao-gov.deb"
 
 LICENSE="MIT"
 SLOT="0"
