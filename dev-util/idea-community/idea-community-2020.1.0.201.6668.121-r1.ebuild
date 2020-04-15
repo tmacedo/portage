@@ -52,7 +52,7 @@ RDEPEND="${DEPEND}
 	>=virtual/jdk-1.7:*
 	dev-java/jansi-native
 	dev-libs/libdbusmenu
-	dev-util/lldb"
+	<dev-util/lldb-10.0.0"
 BDEPEND="dev-util/patchelf"
 RESTRICT="splitdebug"
 S="${WORKDIR}/${MY_PN}-IC-$(ver_cut 4-6)"
