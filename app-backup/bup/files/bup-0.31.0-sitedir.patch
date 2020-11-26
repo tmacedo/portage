@@ -1,0 +1,63 @@
+diff -u a/Makefile b/Makefile
+--- a/Makefile	2020-11-25 22:10:28.828028363 +0000
++++ b/Makefile	2020-11-26 19:17:40.157457826 +0000
+@@ -28,7 +28,7 @@
+ os := $(shell ($(pf); uname | sed 's/[-_].*//') $(isok))
+ os := $(call shout,$(os),Unable to determine OS)
+ 
+-CFLAGS := -Wall -Wformat=2 -O2 -Werror -Wno-unknown-pragmas $(CFLAGS)
++CFLAGS := -Wall -Wformat=2 -Wno-unknown-pragmas $(CFLAGS)
+ CFLAGS := -D_FILE_OFFSET_BITS=64 $(PYINCLUDE) $(CFLAGS)
+ SOEXT:=.so
+ 
+@@ -106,29 +106,33 @@
+ dest_docdir := $(DESTDIR)$(DOCDIR)
+ dest_bindir := $(DESTDIR)$(BINDIR)
+ dest_libdir := $(DESTDIR)$(LIBDIR)
++dest_sitedir := $(DESTDIR)$(SITEDIR)
+ 
+ install: all
+-	$(INSTALL) -d $(dest_bindir) \
+-		$(dest_libdir)/bup $(dest_libdir)/cmd \
++	$(INSTALL) -d $(dest_bindir) $(dest_libdir) \
++		$(dest_sitedir)/bup $(dest_sitedir)/cmd \
+ 		$(dest_libdir)/web $(dest_libdir)/web/static
+ 	test -z "$(man_roff)" || install -d $(dest_mandir)/man1
+ 	test -z "$(man_roff)" || $(INSTALL) -m 0644 $(man_roff) $(dest_mandir)/man1
+ 	test -z "$(man_html)" || install -d $(dest_docdir)
+ 	test -z "$(man_html)" || $(INSTALL) -m 0644 $(man_html) $(dest_docdir)
+-	dev/install-python-script lib/cmd/bup "$(dest_libdir)/cmd/bup"
++	dev/install-python-script lib/cmd/bup "$(dest_sitedir)/cmd/bup"
+ 	set -e; \
+ 	for cmd in $$(ls cmd/bup-*); do \
+-	  dev/install-python-script "$$cmd" "$(dest_libdir)/$$cmd"; \
++	  dev/install-python-script "$$cmd" "$(dest_sitedir)/$$cmd"; \
+ 	done
+ 	cd "$(dest_bindir)" && \
+-	  ln -sf "$$($(bup_python) -c 'import os; print(os.path.relpath("$(abspath $(dest_libdir))/cmd/bup"))')"
++	  ln -sf "$$($(bup_python) -c 'import os; print(os.path.relpath("$(abspath $(dest_sitedir))/cmd/bup"))')"
+ 	set -e; \
+ 	$(INSTALL) -pm 0644 \
+ 		lib/bup/*.py \
+-		$(dest_libdir)/bup
++		$(dest_sitedir)/bup
+ 	$(INSTALL) -pm 0755 \
+ 		lib/bup/*$(SOEXT) \
+-		$(dest_libdir)/bup
++		$(dest_sitedir)/bup
++	$(INSTALL) -pm 0755 \
++		lib/cmd/* \
++		$(dest_sitedir)/cmd
+ 	$(INSTALL) -pm 0644 \
+ 		lib/web/static/* \
+ 		$(dest_libdir)/web/static/
+@@ -140,7 +144,7 @@
+ 	        $(dest_libdir)/bup/source_info.py; \
+ 	else \
+ 	    ! grep -qF '$$Format' lib/bup/source_info.py; \
+-	    $(INSTALL) -pm 0644 lib/bup/source_info.py $(dest_libdir)/bup/; \
++	    $(INSTALL) -pm 0644 lib/bup/source_info.py $(dest_sitedir)/bup/; \
+ 	fi
+ 
+ config/config.h: config/config.vars
+Binary files a/.Makefile.swp and b/.Makefile.swp differ
