@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6,7,8,9} pypy3 )
+PYTHON_COMPAT=( python3_{7,8,9,10} pypy3 )
 MY_PV="$(ver_cut 1-2)"
 
 inherit python-single-r1
@@ -25,9 +25,9 @@ RDEPEND="${PYTHON_DEPS}
 	dev-vcs/git
 	sys-apps/acl
 	$(python_gen_cond_dep '
-		dev-python/fuse-python[${PYTHON_MULTI_USEDEP}]
-		dev-python/pyxattr[${PYTHON_MULTI_USEDEP}]
-		web? ( www-servers/tornado[${PYTHON_MULTI_USEDEP}] )
+		dev-python/fuse-python[${PYTHON_USEDEP}]
+		dev-python/pyxattr[${PYTHON_USEDEP}]
+		web? ( www-servers/tornado[${PYTHON_USEDEP}] )
 	')"
 DEPEND="${RDEPEND}
 	test? (
