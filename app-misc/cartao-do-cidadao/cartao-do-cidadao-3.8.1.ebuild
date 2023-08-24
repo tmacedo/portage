@@ -10,7 +10,7 @@ inherit unpacker eutils gnome2-utils xdg-utils
 DESCRIPTION="Tool for signing with the Portuguese ID card"
 HOMEPAGE="https://www.autenticacao.gov.pt/cc-aplicacao"
 
-SRC_URI_AMD64="https://www.autenticacao.gov.pt/documents/10179/11962/Ubuntu+3.0.16+x64/170f0e8a-c83f-4570-af0f-7fbd4741a42e"
+SRC_URI_AMD64="https://aplicacoes.autenticacao.gov.pt/apps/pteid-mw_ubuntu22_amd64.deb"
 SRC_URI="
     amd64? ( ${SRC_URI_AMD64} )
 "
@@ -26,10 +26,10 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sys-apps/pcsc-tools
 	sys-apps/pcsc-lite
-	dev-libs/openssl:1.0.0
+	dev-libs/openssl
 	>=dev-libs/xerces-c-3.2.0
-	=dev-libs/libzip-1.1.3
-	=dev-libs/xml-security-c-1.7.3-r1
+	>=dev-libs/libzip-1.6.1-r1
+	>=dev-libs/xml-security-c-2.0.0
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
 	dev-qt/qtnetwork:5
@@ -51,7 +51,8 @@ src_install() {
 	rm -r usr/share
 	insinto /usr
 	doins -r usr/local
-	dosym /usr/lib/libcurl.so.4 usr/lib/libcurl-nss.so.4
+	dosym /usr/$(get_libdir)/libcurl.so.4 usr/$(get_libdir)/libcurl-nss.so.4
+	dosym /usr/$(get_libdir)/libzip.so.5 usr/$(get_libdir)/libzip.so.4
 	fperms -R +x /usr/local/bin
 	insinto /usr/bin
 }
