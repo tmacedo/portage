@@ -5,7 +5,7 @@
 EAPI=6
 
 MY_PN=${PN/-bin/}
-inherit unpacker eutils
+inherit unpacker
 
 DESCRIPTION="Tool for authenticating with https://www.autenticacao.gov.pt/"
 HOMEPAGE="https://www.autenticacao.gov.pt/"

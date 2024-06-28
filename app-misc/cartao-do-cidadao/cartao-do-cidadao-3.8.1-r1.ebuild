@@ -5,7 +5,7 @@
 EAPI=6
 
 MY_PN=${PN/-bin/}
-inherit unpacker eutils gnome2-utils xdg-utils
+inherit unpacker gnome2-utils xdg-utils
 
 DESCRIPTION="Tool for signing with the Portuguese ID card"
 HOMEPAGE="https://www.autenticacao.gov.pt/cc-aplicacao"
